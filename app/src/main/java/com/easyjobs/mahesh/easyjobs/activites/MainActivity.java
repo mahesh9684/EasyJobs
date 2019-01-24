@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Get all jobs
 
-//        Call<List<GetAllJobs>> getAllJobs = apis.getAllJobs();
         Call<ResponseBody> getAllJobs = apis.getAllJobs();
 
         getAllJobs.enqueue(new Callback<ResponseBody>() {
@@ -66,26 +65,6 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("response failure body " + call.request());
             }
         });
-
-//        getAllJobs.enqueue(new Callback<List<GetAllJobs>>() {
-//            @Override
-//            public void onResponse(Call<List<GetAllJobs>> call, Response<List<GetAllJobs>> response) {
-//
-//                List<GetAllJobs> getAllJobsList = response.body();
-//                List<JobsData> jobsDataList = null;
-//                for (GetAllJobs getAllJobs : getAllJobsList) {
-//                    jobsDataList = getAllJobs.getData();
-//                }
-//                AllJobsShowAdapter adapter = new AllJobsShowAdapter(getApplicationContext(), jobsDataList);
-//                recyclerView.setAdapter(adapter);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<List<GetAllJobs>> call, Throwable t) {
-//                System.out.println("GetAllData on failure ");
-//            }
-//        });
-//        System.out.println("getAllJobs " + getAllJobs.);
 
         recyclerView.setOnClickListener(new View.OnClickListener() {
             @Override

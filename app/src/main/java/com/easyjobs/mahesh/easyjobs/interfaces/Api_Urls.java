@@ -12,15 +12,17 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 public interface Api_Urls {
 
     //    @GET("/api/jobs")
-    @GET("EasyJobServices/webresources/easyjob/getclientdata")
-//    @GET("/api/unknown")
-//    Call<List<GetAllJobs>> getAllJobs();
+    @GET("EasyJobServices/webresources/easyjob/getjobs")
     Call<ResponseBody> getAllJobs();
+
+    @POST("EasyJobServices/webresources/easyjob/addjob")
+    Call<ResponseBody> addJobs(@Body String data);
 
     @GET("/api/job/")
     Call<List<GetAllJobs>> getJob(@Body String job_id);
