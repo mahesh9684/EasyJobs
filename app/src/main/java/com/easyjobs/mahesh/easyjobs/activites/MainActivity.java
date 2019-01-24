@@ -15,8 +15,13 @@ import com.easyjobs.mahesh.easyjobs.RetrofitService;
 import com.easyjobs.mahesh.easyjobs.adapters.AllJobsShowAdapter;
 import com.easyjobs.mahesh.easyjobs.interfaces.Api_Urls;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -42,26 +47,44 @@ public class MainActivity extends AppCompatActivity {
 
         // Get all jobs
 
-        Call<List<GetAllJobs>> getAllJobs = apis.getAllJobs();
+//        Call<List<GetAllJobs>> getAllJobs = apis.getAllJobs();
+        Call<ResponseBody> getAllJobs = apis.getAllJobs();
 
-        getAllJobs.enqueue(new Callback<List<GetAllJobs>>() {
+        getAllJobs.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<List<GetAllJobs>> call, Response<List<GetAllJobs>> response) {
-
-                List<GetAllJobs> getAllJobsList = response.body();
-                List<JobsData> jobsDataList = null;
-                for (GetAllJobs getAllJobs : getAllJobsList) {
-                    jobsDataList = getAllJobs.getData();
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                try {
+                    System.out.println("response " + response.body().string());
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-                AllJobsShowAdapter adapter = new AllJobsShowAdapter(getApplicationContext(), jobsDataList);
-                recyclerView.setAdapter(adapter);
             }
 
             @Override
-            public void onFailure(Call<List<GetAllJobs>> call, Throwable t) {
-                System.out.println("GetAllData on failure ");
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+
+                System.out.println("response failure body " + call.request());
             }
         });
+
+//        getAllJobs.enqueue(new Callback<List<GetAllJobs>>() {
+//            @Override
+//            public void onResponse(Call<List<GetAllJobs>> call, Response<List<GetAllJobs>> response) {
+//
+//                List<GetAllJobs> getAllJobsList = response.body();
+//                List<JobsData> jobsDataList = null;
+//                for (GetAllJobs getAllJobs : getAllJobsList) {
+//                    jobsDataList = getAllJobs.getData();
+//                }
+//                AllJobsShowAdapter adapter = new AllJobsShowAdapter(getApplicationContext(), jobsDataList);
+//                recyclerView.setAdapter(adapter);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<GetAllJobs>> call, Throwable t) {
+//                System.out.println("GetAllData on failure ");
+//            }
+//        });
 //        System.out.println("getAllJobs " + getAllJobs.);
 
         recyclerView.setOnClickListener(new View.OnClickListener() {
